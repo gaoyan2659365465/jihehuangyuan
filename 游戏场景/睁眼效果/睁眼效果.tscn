@@ -1,0 +1,122 @@
+[gd_scene load_steps=12 format=3 uid="uid://ciur6uw1tshh2"]
+
+[ext_resource type="Script" path="res://游戏场景/睁眼效果/睁眼效果.gd" id="1_ql1r3"]
+[ext_resource type="Texture2D" uid="uid://227dp7wwrgrv" path="res://游戏场景/睁眼效果/素材/红眼睛.png" id="2_t4i52"]
+[ext_resource type="Texture2D" uid="uid://dommdu1gi6clv" path="res://游戏场景/睁眼效果/素材/红眼睛闭眼.png" id="3_xs3ln"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6pq2h"]
+light_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_c22pn"]
+light_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_c058d"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_82104"]
+offsets = PackedFloat32Array(0, 0.270642, 1)
+colors = PackedColorArray(1, 0, 0.0833335, 1, 1, 0, 0.0833335, 0.922018, 1, 0, 0.0833335, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5ojhw"]
+gradient = SubResource("Gradient_82104")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Animation" id="Animation_cn3eg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D3:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D4:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_16or3"]
+resource_name = "眨眼"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D3:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.6, 0.666667, 0.733333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, true, false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D4:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.6, 0.666667, 0.733333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, false, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u5wrq"]
+_data = {
+"RESET": SubResource("Animation_cn3eg"),
+"眨眼": SubResource("Animation_16or3")
+}
+
+[node name="睁眼效果" type="Node2D"]
+script = ExtResource("1_ql1r3")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_6pq2h")
+scale = Vector2(0.135417, 0.135417)
+texture = ExtResource("2_t4i52")
+
+[node name="Sprite2D4" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_c22pn")
+scale = Vector2(0.135417, 0.135417)
+texture = ExtResource("3_xs3ln")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_c058d")
+position = Vector2(-15, 0)
+rotation = -1.09236
+scale = Vector2(0.68744, 1.17005)
+texture = SubResource("GradientTexture2D_5ojhw")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_c058d")
+position = Vector2(18, -3)
+rotation = 0.895131
+scale = Vector2(0.68744, 1.17005)
+texture = SubResource("GradientTexture2D_5ojhw")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_u5wrq")
+}
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

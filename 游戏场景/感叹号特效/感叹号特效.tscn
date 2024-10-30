@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://ccdaq26v8yc5d"]
+
+[ext_resource type="Texture2D" uid="uid://dba3w2fuab0yj" path="res://游戏场景/感叹号特效/素材/感叹号.png" id="1_gsp5o"]
+
+[sub_resource type="Curve" id="Curve_xsl1o"]
+_data = [Vector2(0, 0), 0.0, 4.79933, 0, 0, Vector2(0.510204, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_4hstw"]
+curve = SubResource("Curve_xsl1o")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ivqc6"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(14.83, 2.895, 1)
+angle_min = -9.99999
+angle_max = 10.0
+scale_min = 0.5
+scale_max = 0.7
+alpha_curve = SubResource("CurveTexture_4hstw")
+
+[node name="感叹号特效" type="GPUParticles2D"]
+visible = false
+amount = 3
+process_material = SubResource("ParticleProcessMaterial_ivqc6")
+texture = ExtResource("1_gsp5o")
+lifetime = 1.5
+randomness = 1.0

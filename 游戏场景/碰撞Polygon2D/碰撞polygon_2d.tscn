@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://dj6p68nh5w5is"]
+
+[ext_resource type="Script" path="res://游戏场景/碰撞Polygon2D/碰撞polygon_2d.gd" id="1_snbng"]
+
+[node name="碰撞Polygon2D" type="Polygon2D"]
+color = Color(0, 0, 0, 1)
+antialiased = true
+script = ExtResource("1_snbng")
+
+[node name="物理空气墙" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="物理空气墙"]

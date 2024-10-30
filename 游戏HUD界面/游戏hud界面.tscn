@@ -1,0 +1,87 @@
+[gd_scene load_steps=8 format=3 uid="uid://d1syr03xrrxmf"]
+
+[ext_resource type="Script" path="res://游戏HUD界面/游戏hud界面.gd" id="1_tuf24"]
+[ext_resource type="PackedScene" uid="uid://c1raqgncwn22u" path="res://游戏HUD界面/能量条/能量条.tscn" id="3_q2fha"]
+[ext_resource type="Shader" path="res://开始场景/旧电视效果.gdshader" id="4_qne1a"]
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="6_8mevc"]
+[ext_resource type="PackedScene" uid="uid://dnevd1op0omaq" path="res://游戏HUD界面/剧情镜头控件/剧情镜头控件.tscn" id="7_ieo7q"]
+[ext_resource type="PackedScene" uid="uid://c7mbu2eu6onmy" path="res://视频转场/视频转场.tscn" id="8_3vs8x"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wdevx"]
+shader = ExtResource("4_qne1a")
+shader_parameter/overlay = false
+shader_parameter/scanlines_opacity = 0.13
+shader_parameter/scanlines_width = 0.5
+shader_parameter/grille_opacity = 0.079
+shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/pixelate = false
+shader_parameter/roll = false
+shader_parameter/roll_speed = 8.0
+shader_parameter/roll_size = 0.0
+shader_parameter/roll_variation = 0.1
+shader_parameter/distort_intensity = 0.0
+shader_parameter/noise_opacity = 0.4
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.06
+shader_parameter/aberration = 0.01
+shader_parameter/brightness = 1.925
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 0.11
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.38
+shader_parameter/vignette_opacity = 0.38
+
+[node name="游戏HUD界面" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_tuf24")
+
+[node name="能量条" parent="." instance=ExtResource("3_q2fha")]
+layout_mode = 1
+
+[node name="Virtual Joystick" parent="." instance=ExtResource("6_8mevc")]
+layout_mode = 1
+offset_top = -259.0
+offset_right = 558.0
+offset_bottom = 261.0
+scale = Vector2(0.5, 0.5)
+mouse_filter = 1
+pressed_color = Color(0.929688, 0.929688, 0.929688, 1)
+clampzone_size = 30.0
+joystick_mode = 1
+visibility_mode = 2
+
+[node name="剧情镜头控件" parent="." instance=ExtResource("7_ieo7q")]
+layout_mode = 1
+
+[node name="跳跃" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 571.0
+offset_top = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="视频转场" parent="." instance=ExtResource("8_3vs8x")]
+layout_mode = 1
+
+[node name="故障艺术老电视效果" type="ColorRect" parent="."]
+z_index = 2
+material = SubResource("ShaderMaterial_wdevx")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[connection signal="能量耗尽" from="能量条" to="." method="_on_能量条_能量耗尽"]

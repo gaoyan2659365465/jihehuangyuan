@@ -1,0 +1,53 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="几何Demo"
+run/main_scene="res://开始场景/开始场景.tscn"
+config/features=PackedStringArray("4.3", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+Global="*res://addons/template/scene/global.gd"
+PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
+
+[display]
+
+window/size/mode=4
+window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/android_game_tool/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/template/plugin.cfg")
+
+[global_group]
+
+"相机框"=""
+"告示牌"=""
+"能量电池"=""
+
+[gui]
+
+theme/custom_font="res://全局资源/思源黑体SourceHanSansK-Bold.TTF"
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
+[physics]
+
+common/physics_interpolation=true
+
+[rendering]
+
+renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true

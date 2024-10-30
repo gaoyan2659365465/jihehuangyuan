@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1ramepduavd1"]
+
+[ext_resource type="Script" path="res://战斗场景/角色/角色.gd" id="1_juwfu"]
+[ext_resource type="Texture2D" uid="uid://c7h237vjjr5mw" path="res://敌人/素材/三角形.png" id="1_rdb3q"]
+
+[node name="角色" type="Node2D"]
+script = ExtResource("1_juwfu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("1_rdb3q")

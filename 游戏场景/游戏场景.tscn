@@ -1,0 +1,73 @@
+[gd_scene load_steps=14 format=3 uid="uid://ctgekvfv0s65o"]
+
+[ext_resource type="PackedScene" uid="uid://ch8d6jsuncitt" path="res://玩家角色/player.tscn" id="1_cyyc2"]
+[ext_resource type="Script" path="res://游戏场景/游戏场景.gd" id="1_wb0tb"]
+[ext_resource type="Script" path="res://幻影相机/camera_shake.gd" id="2_8tlwi"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="3_vqv11"]
+[ext_resource type="PackedScene" uid="uid://bthk31uocm7x" path="res://游戏场景/子场景/游戏子场景0.tscn" id="5_a7jkg"]
+[ext_resource type="AudioStream" uid="uid://btoanxd56nlpn" path="res://全局资源/风声.wav" id="6_4x2yg"]
+[ext_resource type="PackedScene" uid="uid://bsy8ir4kk4s8h" path="res://游戏场景/子场景/游戏子场景2.tscn" id="6_f1pu8"]
+[ext_resource type="PackedScene" uid="uid://ctyd6gsudbj6p" path="res://游戏场景/子场景/游戏子场景3.tscn" id="8_cd3n8"]
+[ext_resource type="PackedScene" uid="uid://db4nddo6y46g6" path="res://游戏HUD界面/触摸跳跃控件/触摸跳跃控件.tscn" id="9_y4v7d"]
+[ext_resource type="AudioStream" uid="uid://d1xrmy7b5xflp" path="res://全局资源/钢琴BGM.mp3" id="10_0qlrb"]
+[ext_resource type="PackedScene" uid="uid://cxn8pm3fp1vra" path="res://游戏场景/子场景/游戏子场景4.tscn" id="10_dxni1"]
+[ext_resource type="PackedScene" uid="uid://drit1puh748eb" path="res://游戏场景/子场景/游戏子场景5.tscn" id="11_bmxbj"]
+[ext_resource type="PackedScene" uid="uid://b0s2w6qnc2lyt" path="res://游戏场景/子场景/游戏子场景1.tscn" id="13_q8gv6"]
+
+[node name="游戏场景" type="Node2D"]
+script = ExtResource("1_wb0tb")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
+color = Color(0.160156, 0.160156, 0.160156, 1)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+physics_interpolation_mode = 1
+position = Vector2(-1472.59, -2257.14)
+zoom = Vector2(1.4, 1.4)
+script = ExtResource("2_8tlwi")
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+script = ExtResource("3_vqv11")
+
+[node name="Player" parent="." instance=ExtResource("1_cyyc2")]
+z_index = 1
+position = Vector2(-1472.59, -2257.14)
+move_mode = 1
+
+[node name="触摸跳跃控件" parent="." instance=ExtResource("9_y4v7d")]
+offset_right = 581.0
+offset_bottom = 644.0
+
+[node name="游戏子场景0" parent="." instance=ExtResource("5_a7jkg")]
+
+[node name="游戏子场景1" parent="." instance=ExtResource("13_q8gv6")]
+position = Vector2(3125, -8)
+
+[node name="游戏子场景2" parent="." instance=ExtResource("6_f1pu8")]
+position = Vector2(2715, 1036)
+
+[node name="游戏子场景3" parent="." instance=ExtResource("8_cd3n8")]
+position = Vector2(-2350, 4194)
+
+[node name="游戏子场景4" parent="." instance=ExtResource("10_dxni1")]
+position = Vector2(-1859, -2621)
+
+[node name="游戏子场景5" parent="." instance=ExtResource("11_bmxbj")]
+position = Vector2(-7044, 4073)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_4x2yg")
+autoplay = true
+bus = &"风声"
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_0qlrb")
+volume_db = -8.0
+autoplay = true
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(583, 415)
+
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
+[connection signal="finished" from="AudioStreamPlayer2" to="." method="_on_audio_stream_player_2_finished"]

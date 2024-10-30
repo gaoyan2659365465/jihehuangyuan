@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://b2n8ioouop7x7"]
+
+[ext_resource type="Shader" path="res://游戏场景/雪特效/粒子圆形.gdshader" id="1_qunjv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e6ifj"]
+shader = ExtResource("1_qunjv")
+shader_parameter/edge = 0.264
+shader_parameter/size = 0.5
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ilidb"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1000, 10, 1)
+gravity = Vector3(0, 98, 0)
+scale_max = 5.0
+color = Color(0.734375, 0.734375, 0.734375, 1)
+turbulence_enabled = true
+
+[node name="远" type="GPUParticles2D"]
+material = SubResource("ShaderMaterial_e6ifj")
+amount = 300
+process_material = SubResource("ParticleProcessMaterial_ilidb")
+lifetime = 20.0
+preprocess = 10.0
+randomness = 1.0
+visibility_rect = Rect2(-1034.63, -10.7583, 2099.88, 862.614)

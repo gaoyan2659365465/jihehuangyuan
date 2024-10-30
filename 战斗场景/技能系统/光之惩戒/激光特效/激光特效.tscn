@@ -1,0 +1,265 @@
+[gd_scene load_steps=18 format=3 uid="uid://bes7pb783f7jp"]
+
+[ext_resource type="Script" path="res://战斗场景/技能系统/光之惩戒/激光特效/激光特效.gd" id="1_6be1s"]
+[ext_resource type="Texture2D" uid="uid://mgudlhasf8n" path="res://战斗场景/技能系统/光之惩戒/激光特效/BOOM良品素材 (467).png" id="1_l3doa"]
+[ext_resource type="Shader" path="res://战斗场景/技能系统/光之惩戒/激光特效/特效母材质.gdshader" id="1_tbvmd"]
+[ext_resource type="Texture2D" uid="uid://dedl6n1kk43vg" path="res://战斗场景/技能系统/光之惩戒/激光特效/BOOM良品素材 (421).png" id="1_vc75e"]
+[ext_resource type="Texture2D" uid="uid://dy8k5ju0tdd46" path="res://战斗场景/技能系统/光之惩戒/激光特效/BOOM良品素材 (513).png" id="1_ysmap"]
+
+[sub_resource type="Gradient" id="Gradient_djxx3"]
+offsets = PackedFloat32Array(0.898496, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qqeal"]
+gradient = SubResource("Gradient_djxx3")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vkqr5"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7b23s"]
+noise = SubResource("FastNoiseLite_vkqr5")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xqjyj"]
+shader = ExtResource("1_tbvmd")
+shader_parameter/Tiling = Vector2(1, 1)
+shader_parameter/ImgSize = Vector2(1, 1)
+shader_parameter/Offset = Vector2(0, 0)
+shader_parameter/MainTexPanner = Vector2(1, 0)
+shader_parameter/MainTexColor = Color(1, 1, 1, 1)
+shader_parameter/MainTexBrightness = 1.0
+shader_parameter/MainTexContrast = 1.0
+shader_parameter/MainTexSaturation = 1.0
+shader_parameter/MaskTiling = Vector2(1, 1)
+shader_parameter/MaskImgSize = Vector2(1, 1)
+shader_parameter/MaskOffset = Vector2(0, 0)
+shader_parameter/TurbulenceTiling = Vector2(1, 1)
+shader_parameter/TurbulenceImgSize = Vector2(1, 1)
+shader_parameter/TurbulenceOffset = Vector2(0, 0)
+shader_parameter/TurbulenceTexPower = 0.1
+shader_parameter/TurbulencePanner = Vector2(1, 1)
+shader_parameter/TurbulenceTexDis = 0.0
+shader_parameter/MainTex = ExtResource("1_l3doa")
+shader_parameter/MaskTex = SubResource("GradientTexture1D_qqeal")
+shader_parameter/TurbulenceTex = SubResource("NoiseTexture2D_7b23s")
+
+[sub_resource type="Animation" id="Animation_i6rah"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("激光主干:material:shader_parameter/MaskTex:gradient:offsets")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedFloat32Array(0.898496, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Boom良品素材(513):scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Boom良品素材(513)2:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.516209, 0.800533)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Boom良品素材(421):scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.480556, 0.480556)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GPUParticles2D:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("激光主干:material:shader_parameter/TurbulenceTexDis")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_swn43"]
+resource_name = "激光"
+length = 2.0
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("激光主干:material:shader_parameter/MaskTex:gradient:offsets")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.11, 0.22, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [PackedFloat32Array(0.898496, 1), PackedFloat32Array(0.70195, 1), PackedFloat32Array(0, 1), PackedFloat32Array(0, 0.0413534)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Boom良品素材(513):scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.06, 0.18, 0.23, 0.37),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1), Vector2(1, 1), Vector2(1e-05, 1e-05)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Boom良品素材(513)2:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1, 0.18, 0.24, 0.33),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(0.516209, 0.800533), Vector2(0.516209, 0.800533), Vector2(1e-05, 1e-05)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Boom良品素材(421):scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.13, 0.18, 0.24, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(0.480556, 0.480556), Vector2(0.480556, 0.480556), Vector2(1e-05, 1e-05)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GPUParticles2D:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.18),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("激光主干:material:shader_parameter/TurbulenceTexDis")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.61, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.105]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sf8jq"]
+_data = {
+"RESET": SubResource("Animation_i6rah"),
+"激光": SubResource("Animation_swn43")
+}
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_fhcar"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Curve" id="Curve_yucp4"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0952381, 1), 0.0, 0.0, 0, 0, Vector2(0.748299, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_ranf0"]
+curve = SubResource("Curve_yucp4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vt6es"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(400, 1, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+spread = 180.0
+initial_velocity_min = 109.09
+initial_velocity_max = 166.67
+gravity = Vector3(0, 0, 0)
+scale_min = 0.0
+scale_max = 12.12
+alpha_curve = SubResource("CurveTexture_ranf0")
+
+[node name="激光特效" type="Node2D"]
+script = ExtResource("1_6be1s")
+
+[node name="激光主干" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_xqjyj")
+position = Vector2(442.755, -1.10318)
+scale = Vector2(1.63613, 1.63613)
+texture = ExtResource("1_ysmap")
+flip_h = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_sf8jq")
+}
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_fhcar")
+position = Vector2(447.755, 3.89682)
+emitting = false
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_vt6es")
+lifetime = 1.5
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+
+[node name="Boom良品素材(513)" type="Sprite2D" parent="."]
+position = Vector2(9.75516, -5.10318)
+rotation = -0.517806
+texture = ExtResource("1_ysmap")
+
+[node name="Boom良品素材(513)2" type="Sprite2D" parent="."]
+position = Vector2(9.75516, -5.10318)
+rotation = 0.87667
+scale = Vector2(0.516209, 0.800533)
+texture = ExtResource("1_ysmap")
+
+[node name="Boom良品素材(421)" type="Sprite2D" parent="."]
+position = Vector2(13.7551, 1.89682)
+scale = Vector2(0.480556, 0.480556)
+texture = ExtResource("1_vc75e")

@@ -1,0 +1,103 @@
+[gd_scene load_steps=15 format=3 uid="uid://c16eiip1av2tq"]
+
+[ext_resource type="Script" path="res://开始场景/开始场景.gd" id="1_7g1gk"]
+[ext_resource type="Texture2D" uid="uid://cpp5hvy4xj5sn" path="res://开始场景/素材/渐变纹理.tres" id="1_nevfb"]
+[ext_resource type="Texture2D" uid="uid://c7h237vjjr5mw" path="res://全局资源/三角形.png" id="2_hmnns"]
+[ext_resource type="Shader" path="res://开始场景/背景滚动效果/滚动.gdshader" id="4_1cmgu"]
+[ext_resource type="PackedScene" uid="uid://m7v6fwg2jljg" path="res://主菜单界面/主菜单界面.tscn" id="4_3rfn2"]
+[ext_resource type="Texture2D" uid="uid://b3m366vj6pktf" path="res://开始场景/背景滚动效果/素材/pattern_38.svg" id="4_g0opr"]
+[ext_resource type="Shader" path="res://开始场景/素材/旋涡.gdshader" id="7_838pm"]
+[ext_resource type="Texture2D" uid="uid://ch888va4x48og" path="res://开始场景/素材/dotted_line.png" id="8_c6qip"]
+[ext_resource type="Shader" path="res://开始场景/旧电视效果.gdshader" id="11_ajyo3"]
+[ext_resource type="PackedScene" uid="uid://c7mbu2eu6onmy" path="res://视频转场/视频转场.tscn" id="11_r7lst"]
+[ext_resource type="Texture2D" uid="uid://w0q5sdlxktak" path="res://主菜单界面/素材/logo.png" id="12_301sm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d62ko"]
+shader = ExtResource("4_1cmgu")
+shader_parameter/scroll_speed = 0.03
+shader_parameter/angle_degrees = 315.0
+shader_parameter/repeat_x = 4.0
+shader_parameter/repeat_y = 2.0
+shader_parameter/tint = Color(0.175781, 0.175781, 0.175781, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d6tyh"]
+shader = ExtResource("7_838pm")
+shader_parameter/offset = 20.0
+shader_parameter/speed = 1.0
+shader_parameter/mask = 0.45
+shader_parameter/color = Color(0.664063, 0.664063, 0.664063, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8hr2l"]
+shader = ExtResource("11_ajyo3")
+shader_parameter/overlay = false
+shader_parameter/scanlines_opacity = 0.13
+shader_parameter/scanlines_width = 0.03
+shader_parameter/grille_opacity = 0.079
+shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/pixelate = false
+shader_parameter/roll = true
+shader_parameter/roll_speed = 8.0
+shader_parameter/roll_size = 15.0
+shader_parameter/roll_variation = 1.8
+shader_parameter/distort_intensity = 0.05
+shader_parameter/noise_opacity = 0.4
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.06
+shader_parameter/aberration = 0.02
+shader_parameter/brightness = 1.925
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 0.11
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.38
+shader_parameter/vignette_opacity = 0.38
+
+[node name="开始场景" type="Node2D"]
+script = ExtResource("1_7g1gk")
+
+[node name="渐变纹理" type="Sprite2D" parent="."]
+position = Vector2(857.5, 542.5)
+scale = Vector2(27.3906, 17.2969)
+texture = ExtResource("1_nevfb")
+
+[node name="滚动背景" type="Sprite2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_d62ko")
+position = Vector2(543, 312)
+scale = Vector2(0.954687, 0.540625)
+texture = ExtResource("4_g0opr")
+
+[node name="旋涡特效" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_d6tyh")
+position = Vector2(881, 323)
+scale = Vector2(1.6635, 5.37879)
+texture = ExtResource("8_c6qip")
+
+[node name="三角" type="Sprite2D" parent="."]
+self_modulate = Color(0.726563, 0.726563, 0.726563, 1)
+position = Vector2(290, 290)
+texture = ExtResource("2_hmnns")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="主菜单界面" parent="CanvasLayer" instance=ExtResource("4_3rfn2")]
+
+[node name="视频转场" parent="CanvasLayer" instance=ExtResource("11_r7lst")]
+unique_name_in_owner = true
+
+[node name="故障艺术老电视效果" type="ColorRect" parent="CanvasLayer"]
+z_index = 2
+z_as_relative = false
+material = SubResource("ShaderMaterial_8hr2l")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Logo" type="Sprite2D" parent="."]
+position = Vector2(288, 402)
+scale = Vector2(0.516667, 0.516667)
+texture = ExtResource("12_301sm")
+
+[connection signal="进入游戏" from="CanvasLayer/主菜单界面" to="." method="_on_主菜单界面_进入游戏"]

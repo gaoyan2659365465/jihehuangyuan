@@ -1,0 +1,81 @@
+[gd_scene load_steps=8 format=3 uid="uid://c1raqgncwn22u"]
+
+[ext_resource type="Script" path="res://游戏HUD界面/能量条/能量条.gd" id="1_7554j"]
+[ext_resource type="Texture2D" uid="uid://6v1c7k7km7mx" path="res://游戏HUD界面/能量条/进度条背景.png" id="2_86l1s"]
+[ext_resource type="AudioStream" uid="uid://wux140iblvx7" path="res://全局资源/心跳.wav" id="3_6lfqh"]
+
+[sub_resource type="Gradient" id="Gradient_g0m1w"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_d3i7s"]
+gradient = SubResource("Gradient_g0m1w")
+width = 152
+height = 9
+
+[sub_resource type="Gradient" id="Gradient_dkxyb"]
+offsets = PackedFloat32Array(0.917431, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_waxuv"]
+gradient = SubResource("Gradient_dkxyb")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[node name="能量条" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_7554j")
+
+[node name="Bar" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 73.0
+offset_right = 216.0
+offset_bottom = 82.0
+step = 0.1
+value = 100.0
+texture_under = ExtResource("2_86l1s")
+texture_progress = SubResource("GradientTexture2D_d3i7s")
+
+[node name="小点" type="TextureRect" parent="Bar"]
+visible = false
+layout_mode = 0
+offset_top = -9.0
+offset_right = 7.0
+offset_bottom = -2.0
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_waxuv")
+expand_mode = 1
+
+[node name="小点2" type="TextureRect" parent="Bar"]
+visible = false
+layout_mode = 0
+offset_left = 8.0
+offset_top = -9.0
+offset_right = 15.0
+offset_bottom = -2.0
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_waxuv")
+expand_mode = 1
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[node name="心跳声" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_6lfqh")
+autoplay = true
+bus = &"心跳"
+
+[connection signal="value_changed" from="Bar" to="." method="_on_texture_progress_bar_value_changed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="finished" from="心跳声" to="." method="_on_心跳声_finished"]

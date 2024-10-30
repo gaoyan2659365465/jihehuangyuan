@@ -1,0 +1,131 @@
+[gd_scene load_steps=17 format=3 uid="uid://drit1puh748eb"]
+
+[ext_resource type="PackedScene" uid="uid://bj8xnv1s642p6" path="res://游戏场景/雪特效/雪特效.tscn" id="1_803ik"]
+[ext_resource type="PackedScene" uid="uid://dj6p68nh5w5is" path="res://游戏场景/碰撞Polygon2D/碰撞polygon_2d.tscn" id="2_4nuj1"]
+[ext_resource type="PackedScene" uid="uid://qv87iplisy2j" path="res://灯光/灯光.tscn" id="3_3tqtd"]
+[ext_resource type="PackedScene" uid="uid://cvidgpxd132mm" path="res://幻影相机/camera_area.tscn" id="4_fom8j"]
+[ext_resource type="PackedScene" uid="uid://cj3vcnmk83asy" path="res://游戏场景/告示牌/告示牌.tscn" id="5_e3ef2"]
+[ext_resource type="Script" path="res://addons/template/超级按钮/点击动画配置.gd" id="6_d6kh2"]
+[ext_resource type="PackedScene" uid="uid://x25iluv7b13q" path="res://游戏场景/升级处/升级处.tscn" id="7_opukv"]
+[ext_resource type="PackedScene" uid="uid://6r8mjk7xdebu" path="res://游戏场景/能量电池/chest.tscn" id="8_72xq7"]
+[ext_resource type="PackedScene" uid="uid://cydn30fmsxxnr" path="res://游戏场景/隐藏房间/隐藏房间.tscn" id="8_mqei5"]
+
+[sub_resource type="Gradient" id="Gradient_mt5pw"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0.2, 0.2, 0.2, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ixuqc"]
+gradient = SubResource("Gradient_mt5pw")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aiglk"]
+size = Vector2(2971, 1989)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dkx7s"]
+size = Vector2(2238, 1989)
+
+[sub_resource type="Resource" id="Resource_epuxr"]
+resource_local_to_scene = true
+script = ExtResource("6_d6kh2")
+
+[sub_resource type="Resource" id="Resource_5vxxj"]
+resource_local_to_scene = true
+script = ExtResource("6_d6kh2")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e0838"]
+size = Vector2(358, 290)
+
+[node name="游戏子场景5" type="Node2D"]
+
+[node name="背景板" type="Sprite2D" parent="."]
+light_mask = 3
+z_index = -2
+z_as_relative = false
+position = Vector2(2560, 555.75)
+scale = Vector2(152.219, 104.039)
+texture = SubResource("GradientTexture2D_ixuqc")
+
+[node name="雪特效" parent="." instance=ExtResource("1_803ik")]
+position = Vector2(802, 1177)
+visibility_rect = Rect2(-998.668, -11.0686, 3059.12, 5840.1)
+
+[node name="雪特效2" parent="." instance=ExtResource("1_803ik")]
+position = Vector2(2504, -148)
+visibility_rect = Rect2(-998.668, -11.0686, 3059.12, 5840.1)
+
+[node name="碰撞Polygon2D" parent="." instance=ExtResource("2_4nuj1")]
+position = Vector2(3588, -363)
+polygon = PackedVector2Array(-4788, 310, -4733, 870, -4686, 937, -4606, 907, -4568, 1035, -4349, 1098, -4321, 1300, -4441, 1557, -4182, 1594, -4040, 1670, -3944.88, 1825.02, -4280, 1824, -4338, 2089, -3797, 2066, -3651, 1849, -3279, 1870, -3294, 2072, -1927, 2080, -1699, 2023, -1571, 1865, -1493, 1772, -1560, 1689, -1464, 1572, -1349, 1519, -1312, 1407, -1443, 1145, -1361, 833, -1188, 712, -1004, 712, -995, 614, -678, 618, -665, 738, -485, 699, -265, 714, -198, 1148, 17, 1400, 51, 2652, -1120, 2874, -4255, 2867, -4753, 2840, -5035, 2389, -4955, 1710, -5365, 1555, -5358, 1091, -4959, 342)
+
+[node name="碰撞Polygon2D2" parent="." instance=ExtResource("2_4nuj1")]
+polygon = PackedVector2Array(-433, 394, -332, 763, -249, 839, -337, 979, -491, 1059, -471, 1120, -116, 1245, 405, 1156, 1376, 1340, 1668, 1080, 1865, 991, 1827, 744, 2113, -50, 2056, -380, -617, -317, -351, 115)
+
+[node name="灯光2" parent="." instance=ExtResource("3_3tqtd")]
+position = Vector2(769, 1581)
+rotation = -3.14159
+scale = Vector2(1.49715, 1.47056)
+color = Color(1, 0.0619215, 0, 1)
+
+[node name="CameraArea2D" parent="." instance=ExtResource("4_fom8j")]
+position = Vector2(595, 328)
+
+[node name="CollisionShape2D" parent="CameraArea2D" index="0"]
+position = Vector2(-833.5, 636.5)
+shape = SubResource("RectangleShape2D_aiglk")
+
+[node name="PhantomCamera2D" parent="CameraArea2D" index="1"]
+position = Vector2(-230, 128)
+zoom = Vector2(1, 1)
+
+[node name="CameraArea2D2" parent="." instance=ExtResource("4_fom8j")]
+position = Vector2(595, 328)
+
+[node name="CollisionShape2D" parent="CameraArea2D2" index="0"]
+position = Vector2(1776, 636.5)
+shape = SubResource("RectangleShape2D_dkx7s")
+
+[node name="PhantomCamera2D" parent="CameraArea2D2" index="1"]
+position = Vector2(1386, 128)
+zoom = Vector2(1, 1)
+
+[node name="告示牌" parent="." instance=ExtResource("5_e3ef2")]
+offset_left = 834.0
+offset_top = 1646.0
+offset_right = 904.0
+offset_bottom = 1716.0
+"告示牌名" = "告示牌5_1"
+"是否战斗" = true
+"敌人名字" = "红女士"
+"点击效果" = SubResource("Resource_epuxr")
+
+[node name="升级处" parent="." instance=ExtResource("7_opukv")]
+offset_left = 1549.0
+offset_top = 1642.0
+offset_right = 1668.0
+offset_bottom = 1723.0
+rotation = -0.00305898
+"解锁升级" = true
+"点击效果" = SubResource("Resource_5vxxj")
+
+[node name="Chest" parent="." instance=ExtResource("8_72xq7")]
+position = Vector2(-634, 1702)
+
+[node name="Chest2" parent="." instance=ExtResource("8_72xq7")]
+position = Vector2(-561, 1701)
+
+[node name="Chest3" parent="." instance=ExtResource("8_72xq7")]
+position = Vector2(-228, 1687)
+
+[node name="隐藏房间" parent="." instance=ExtResource("8_mqei5")]
+position = Vector2(-584, 1587)
+
+[node name="Polygon2D" parent="隐藏房间" index="0"]
+polygon = PackedVector2Array(-287, -136, -287, 147, 202, 133, 177, -138)
+
+[node name="CollisionShape2D" parent="隐藏房间/Area2D" index="0"]
+visible = true
+position = Vector2(21, -1)
+shape = SubResource("RectangleShape2D_e0838")
+
+[editable path="CameraArea2D"]
+[editable path="CameraArea2D2"]
+[editable path="隐藏房间"]

@@ -1,0 +1,109 @@
+[gd_scene load_steps=11 format=3 uid="uid://dkf8qbxcw33dm"]
+
+[ext_resource type="Script" path="res://战斗场景/血条控件/血条控件.gd" id="1_e3k35"]
+[ext_resource type="Texture2D" uid="uid://26u8whppwqno" path="res://战斗场景/血条控件/游戏图标.png" id="2_557e1"]
+[ext_resource type="Texture2D" uid="uid://cokx8jwkpu0o5" path="res://战斗场景/血条控件/渐变图.tres" id="3_7k062"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ejdmd"]
+font_size = 19
+
+[sub_resource type="LabelSettings" id="LabelSettings_w7lw8"]
+font_size = 19
+
+[sub_resource type="Gradient" id="Gradient_63ql6"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8rlsq"]
+gradient = SubResource("Gradient_63ql6")
+width = 400
+height = 32
+
+[sub_resource type="Gradient" id="Gradient_c1jtv"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 0.116667, 0, 0.501961)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2valm"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_c1jtv")
+width = 400
+height = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_fbnqd"]
+font_size = 25
+
+[node name="血条控件" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_e3k35")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="头像" type="TextureRect" parent="HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(74, 74)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_557e1")
+expand_mode = 1
+
+[node name="等级" type="Label" parent="HBoxContainer/头像"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 5.0
+offset_top = 58.0
+offset_right = 66.0
+offset_bottom = 78.0
+text = "LV:100"
+label_settings = SubResource("LabelSettings_ejdmd")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="名字" type="Label" parent="HBoxContainer/头像"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -2.0
+offset_top = 85.0
+offset_right = 74.0
+offset_bottom = 105.0
+text = "乌拉诺斯"
+label_settings = SubResource("LabelSettings_w7lw8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 21
+
+[node name="装饰血条" type="TextureProgressBar" parent="HBoxContainer/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+value = 100.0
+texture_under = SubResource("GradientTexture2D_8rlsq")
+texture_progress = SubResource("GradientTexture2D_2valm")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="HBoxContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+value = 100.0
+texture_progress = ExtResource("3_7k062")
+
+[node name="血量" type="Label" parent="HBoxContainer/MarginContainer/TextureProgressBar"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 292.0
+offset_top = -27.0
+offset_right = 410.0
+offset_bottom = 4.0
+text = "452/452"
+label_settings = SubResource("LabelSettings_fbnqd")

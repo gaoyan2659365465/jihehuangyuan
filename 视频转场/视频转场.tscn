@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7mbu2eu6onmy"]
+
+[ext_resource type="Script" path="res://视频转场/视频转场.gd" id="1_2x7xa"]
+[ext_resource type="Shader" path="res://视频转场/素材/视频抠图.gdshader" id="1_jsitw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_we0kk"]
+shader = ExtResource("1_jsitw")
+shader_parameter/color = Color(0.756863, 0.756863, 0.756863, 1)
+
+[node name="视频转场" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_2x7xa")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+z_index = 2
+material = SubResource("ShaderMaterial_we0kk")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand = true
+metadata/_edit_lock_ = true
+
+[node name="纯白色背景" type="ColorRect" parent="."]
+visible = false
+z_index = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.756863, 0.756863, 0.756863, 1)

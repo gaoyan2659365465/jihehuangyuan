@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqpw75ccikdsa"]
+
+[ext_resource type="Script" path="res://战斗场景/伤害数字/harm_label.gd" id="1_5hfa2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5ktty"]
+font_size = 50
+font_color = Color(0.449219, 0.2002, 0, 1)
+outline_size = 10
+outline_color = Color(0.753906, 0.615713, 0, 1)
+
+[node name="HarmLabel" type="Label"]
+offset_right = 40.0
+offset_bottom = 17.0
+text = "50"
+label_settings = SubResource("LabelSettings_5ktty")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("1_5hfa2")

@@ -1,0 +1,106 @@
+[gd_scene load_steps=14 format=3 uid="uid://coa1iartccmnp"]
+
+[ext_resource type="Shader" path="res://游戏HUD界面/对话气泡/边缘扭曲.gdshader" id="1_amt0y"]
+[ext_resource type="Script" path="res://游戏HUD界面/对话气泡/对话气泡.gd" id="2_ju0o0"]
+[ext_resource type="Script" path="res://addons/template/超级按钮/超级按钮.gd" id="3_pe5kl"]
+[ext_resource type="Script" path="res://addons/template/超级按钮/点击动画配置.gd" id="4_y5t65"]
+[ext_resource type="AudioStream" uid="uid://bqp8mygrwjjys" path="res://游戏HUD界面/对话气泡/资源/翻书页.mp3" id="5_vjkjn"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7j8wr"]
+frequency = 0.0604
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kc2o5"]
+width = 64
+height = 64
+seamless = true
+noise = SubResource("FastNoiseLite_7j8wr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q2av0"]
+shader = ExtResource("1_amt0y")
+shader_parameter/speed = 0.177
+shader_parameter/intensity = 0.022
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/disp_tex = SubResource("NoiseTexture2D_kc2o5")
+
+[sub_resource type="Gradient" id="Gradient_gsciw"]
+offsets = PackedFloat32Array(0.975904, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2hggb"]
+gradient = SubResource("Gradient_gsciw")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.9, 0.5)
+
+[sub_resource type="Resource" id="Resource_xgv37"]
+script = ExtResource("4_y5t65")
+
+[sub_resource type="LabelSettings" id="LabelSettings_mm6jr"]
+font_size = 50
+font_color = Color(0, 0, 0, 1)
+outline_size = 15
+outline_color = Color(0.851563, 0.851563, 0.851563, 1)
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(-3.27, 4.005)
+
+[sub_resource type="LabelSettings" id="LabelSettings_221ua"]
+font_color = Color(0, 0, 0, 1)
+
+[node name="对话气泡" type="NinePatchRect"]
+material = SubResource("ShaderMaterial_q2av0")
+offset_left = 214.0
+offset_top = 103.0
+offset_right = 929.0
+offset_bottom = 523.0
+texture = SubResource("GradientTexture2D_2hggb")
+patch_margin_left = 72
+patch_margin_top = 72
+patch_margin_right = 72
+patch_margin_bottom = 72
+script = ExtResource("2_ju0o0")
+
+[node name="超级按钮" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_pe5kl")
+"点击效果" = SubResource("Resource_xgv37")
+
+[node name="Label" type="Label" parent="超级按钮"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_mm6jr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="翻书页声" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_vjkjn")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.0
+offset_top = 150.0
+offset_right = 56.0
+offset_bottom = 167.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "点击进入下一页"
+label_settings = SubResource("LabelSettings_221ua")
+
+[connection signal="button_down" from="超级按钮" to="." method="_on_超级按钮_button_down"]
+[connection signal="点击动画结束" from="超级按钮" to="." method="_on_超级按钮_点击动画结束"]

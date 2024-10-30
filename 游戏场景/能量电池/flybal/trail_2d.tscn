@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://b0kvw757fj4no"]
+
+[ext_resource type="Shader" path="res://玩家角色/角色发光.gdshader" id="1_5yvh5"]
+[ext_resource type="Script" path="res://游戏场景/能量电池/flybal/trail_2d.gd" id="1_y806n"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xyemx"]
+shader = ExtResource("1_5yvh5")
+shader_parameter/color = Color(1, 0.217458, 0.12776, 1)
+shader_parameter/n = 1.0
+
+[sub_resource type="Curve" id="Curve_uae5k"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_v4qdb"]
+offsets = PackedFloat32Array(0, 0.319728)
+colors = PackedColorArray(1, 0.332685, 0.235412, 0, 1, 0.145833, 0.108519, 1)
+
+[node name="Trail2D" type="Line2D"]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_xyemx")
+width_curve = SubResource("Curve_uae5k")
+gradient = SubResource("Gradient_v4qdb")
+script = ExtResource("1_y806n")
+lenght = 20

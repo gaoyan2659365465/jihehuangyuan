@@ -1,0 +1,143 @@
+[gd_scene load_steps=19 format=3 uid="uid://6r8mjk7xdebu"]
+
+[ext_resource type="PackedScene" uid="uid://bd0eliycmkahp" path="res://游戏场景/能量电池/flybal/flyball_generator.tscn" id="1_ag8x2"]
+[ext_resource type="Script" path="res://游戏场景/能量电池/chest.gd" id="1_t8ki4"]
+[ext_resource type="PackedScene" uid="uid://qv87iplisy2j" path="res://灯光/灯光.tscn" id="2_5l0jt"]
+
+[sub_resource type="Gradient" id="Gradient_1y00r"]
+colors = PackedColorArray(1, 1, 1, 0.498039, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6vsr7"]
+gradient = SubResource("Gradient_1y00r")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3aiiv"]
+size = Vector2(40, 38)
+
+[sub_resource type="Gradient" id="Gradient_73v57"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_f30b7"]
+gradient = SubResource("Gradient_73v57")
+width = 32
+height = 32
+
+[sub_resource type="Gradient" id="Gradient_s20ql"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vmibk"]
+gradient = SubResource("Gradient_s20ql")
+width = 32
+height = 32
+
+[sub_resource type="Animation" id="Animation_pvpvi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -20)]
+}
+
+[sub_resource type="Animation" id="Animation_33f1m"]
+resource_name = "chest_start_anim"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -20), Vector2(0, -31)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nn4jm"]
+_data = {
+"RESET": SubResource("Animation_pvpvi"),
+"chest_start_anim": SubResource("Animation_33f1m")
+}
+
+[sub_resource type="Curve" id="Curve_fdeox"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.257009, 1), 0.0, 0.0, 0, 0, Vector2(0.775701, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_fstn1"]
+curve = SubResource("Curve_fdeox")
+
+[sub_resource type="Gradient" id="Gradient_mfvqt"]
+offsets = PackedFloat32Array(0, 0.580645, 1)
+colors = PackedColorArray(0.753906, 0.753906, 0.753906, 1, 0.539063, 0.539063, 0.539063, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_32qjp"]
+gradient = SubResource("Gradient_mfvqt")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1d06v"]
+particle_flag_disable_z = true
+angle_min = -720.0
+angle_max = 720.0
+spread = 180.0
+initial_velocity_min = 48.0
+initial_velocity_max = 148.0
+gravity = Vector3(0, 0, 0)
+damping_min = 31.2
+damping_max = 100.0
+scale_min = 5.0
+scale_max = 30.0
+color = Color(1, 1, 1, 0.490196)
+color_initial_ramp = SubResource("GradientTexture1D_32qjp")
+alpha_curve = SubResource("CurveTexture_fstn1")
+
+[node name="Chest" type="Node2D" groups=["能量电池"]]
+script = ExtResource("1_t8ki4")
+
+[node name="PointLight2D" parent="." instance=ExtResource("2_5l0jt")]
+energy = 0.5
+texture = SubResource("GradientTexture2D_6vsr7")
+texture_scale = 2.82
+
+[node name="CollisionShape2D" parent="PointLight2D/Area2D" index="0"]
+position = Vector2(-1, 0)
+
+[node name="FlyballGenerator" parent="." instance=ExtResource("1_ag8x2")]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_3aiiv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_f30b7")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(0, -20)
+scale = Vector2(1, 0.21875)
+texture = SubResource("GradientTexture2D_vmibk")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_nn4jm")
+}
+
+[node name="方块炸裂特效" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 15
+process_material = SubResource("ParticleProcessMaterial_1d06v")
+lifetime = 1.2
+one_shot = true
+explosiveness = 1.0
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+
+[editable path="PointLight2D"]

@@ -1,0 +1,205 @@
+[gd_scene load_steps=11 format=3 uid="uid://drhkks8fjwvw6"]
+
+[ext_resource type="Script" path="res://战斗场景/战斗功能板控件/战斗功能板控件.gd" id="1_bsnuu"]
+[ext_resource type="Script" path="res://addons/template/超级按钮/超级按钮.gd" id="1_qkhdt"]
+[ext_resource type="Script" path="res://addons/template/超级按钮/点击动画配置.gd" id="2_tdqou"]
+[ext_resource type="PackedScene" uid="uid://047vcfwgemhc" path="res://战斗场景/战斗功能板控件/技能控件/技能板控件.tscn" id="3_1vy1f"]
+
+[sub_resource type="Resource" id="Resource_8hwrx"]
+script = ExtResource("2_tdqou")
+
+[sub_resource type="LabelSettings" id="LabelSettings_k06m1"]
+font_size = 40
+
+[sub_resource type="Resource" id="Resource_anhm1"]
+script = ExtResource("2_tdqou")
+
+[sub_resource type="Resource" id="Resource_8xpco"]
+script = ExtResource("2_tdqou")
+
+[sub_resource type="Resource" id="Resource_kctrp"]
+script = ExtResource("2_tdqou")
+
+[sub_resource type="Resource" id="Resource_56q1r"]
+script = ExtResource("2_tdqou")
+
+[node name="战斗功能板控件" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bsnuu")
+
+[node name="捕捉按钮" type="TextureButton" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 904.0
+offset_top = 496.0
+offset_right = 1004.0
+offset_bottom = 546.0
+script = ExtResource("1_qkhdt")
+"点击效果" = SubResource("Resource_8hwrx")
+
+[node name="ColorRect" type="ColorRect" parent="捕捉按钮"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.183594, 0.183594, 0.183594, 1)
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="捕捉按钮"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "捕捉"
+label_settings = SubResource("LabelSettings_k06m1")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="道具按钮" type="TextureButton" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 1033.0
+offset_top = 495.0
+offset_right = 1133.0
+offset_bottom = 545.0
+script = ExtResource("1_qkhdt")
+"点击效果" = SubResource("Resource_anhm1")
+
+[node name="ColorRect" type="ColorRect" parent="道具按钮"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.183594, 0.183594, 0.183594, 1)
+
+[node name="Label" type="Label" parent="道具按钮"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "道具"
+label_settings = SubResource("LabelSettings_k06m1")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="精灵按钮" type="TextureButton" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 902.0
+offset_top = 598.0
+offset_right = 1002.0
+offset_bottom = 648.0
+script = ExtResource("1_qkhdt")
+"点击效果" = SubResource("Resource_8xpco")
+
+[node name="ColorRect" type="ColorRect" parent="精灵按钮"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.183594, 0.183594, 0.183594, 1)
+
+[node name="Label" type="Label" parent="精灵按钮"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "精灵"
+label_settings = SubResource("LabelSettings_k06m1")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="认输按钮" type="TextureButton" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 1031.0
+offset_top = 596.0
+offset_right = 1131.0
+offset_bottom = 646.0
+script = ExtResource("1_qkhdt")
+"点击效果" = SubResource("Resource_kctrp")
+
+[node name="ColorRect" type="ColorRect" parent="认输按钮"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.183594, 0.183594, 0.183594, 1)
+
+[node name="Label" type="Label" parent="认输按钮"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "认输"
+label_settings = SubResource("LabelSettings_k06m1")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="战斗按钮" type="TextureButton" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 972.0
+offset_top = 546.0
+offset_right = 1072.0
+offset_bottom = 596.0
+script = ExtResource("1_qkhdt")
+"点击效果" = SubResource("Resource_56q1r")
+
+[node name="ColorRect" type="ColorRect" parent="战斗按钮"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.183594, 0.183594, 0.183594, 1)
+
+[node name="Label" type="Label" parent="战斗按钮"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "战斗"
+label_settings = SubResource("LabelSettings_k06m1")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="技能板控件" parent="." instance=ExtResource("3_1vy1f")]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -71.0
+offset_bottom = 0.0
+grow_vertical = 0
+
+[connection signal="玩家释放技能" from="技能板控件" to="." method="_on_技能板控件_玩家释放技能"]

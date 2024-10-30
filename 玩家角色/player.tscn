@@ -1,0 +1,130 @@
+[gd_scene load_steps=17 format=3 uid="uid://ch8d6jsuncitt"]
+
+[ext_resource type="Texture2D" uid="uid://c7h237vjjr5mw" path="res://全局资源/三角形.png" id="1_a65ww"]
+[ext_resource type="Script" path="res://玩家角色/player.gd" id="1_yle5i"]
+[ext_resource type="Shader" path="res://玩家角色/角色发光.gdshader" id="3_5fmnr"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="4_v3bd4"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_1x3lp"]
+[ext_resource type="AudioStream" uid="uid://cdwjmtnqvmsvt" path="res://玩家角色/素材/二段跳.wav" id="6_heeeu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p7pqr"]
+size = Vector2(46, 41)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ikr32"]
+shader = ExtResource("3_5fmnr")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/n = 1.0
+
+[sub_resource type="Gradient" id="Gradient_kurg4"]
+offsets = PackedFloat32Array(0, 0.37, 1)
+colors = PackedColorArray(0.484375, 0.484375, 0.484375, 0.741176, 1, 1, 1, 0.486275, 0.168627, 0.168627, 0.168627, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_au3vw"]
+gradient = SubResource("Gradient_kurg4")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qp145"]
+size = Vector2(48, 45)
+
+[sub_resource type="Resource" id="Resource_1djgs"]
+script = ExtResource("5_1x3lp")
+duration = 0.3
+transition = 0
+ease = 2
+
+[sub_resource type="Resource" id="Resource_3dle1"]
+script = ExtResource("5_1x3lp")
+duration = 5.0
+transition = 0
+ease = 2
+
+[sub_resource type="Animation" id="Animation_ciseu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_kbec1"]
+resource_name = "能量耗尽死亡"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.53333, 1.76667, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -100), Vector2(0, -110), Vector2(0, -100)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2q3t8"]
+_data = {
+"RESET": SubResource("Animation_ciseu"),
+"能量耗尽死亡": SubResource("Animation_kbec1")
+}
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_yle5i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -5)
+shape = SubResource("RectangleShape2D_p7pqr")
+
+[node name="PlayerSprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+texture = ExtResource("1_a65ww")
+offset = Vector2(0, -7)
+
+[node name="角色发光" type="Sprite2D" parent="PlayerSprite"]
+z_as_relative = false
+material = SubResource("ShaderMaterial_ikr32")
+scale = Vector2(8.9375, 8.9375)
+texture = SubResource("GradientTexture2D_au3vw")
+
+[node name="PlayerArea2D" type="Area2D" parent="."]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerArea2D"]
+visible = false
+position = Vector2(-1, 0.5)
+shape = SubResource("RectangleShape2D_qp145")
+
+[node name="剧情对话视角" type="Node2D" parent="." node_paths=PackedStringArray("follow_target")]
+script = ExtResource("4_v3bd4")
+follow_mode = 1
+follow_target = NodePath("..")
+zoom = Vector2(1.4, 1.4)
+tween_resource = SubResource("Resource_1djgs")
+draw_limits = true
+
+[node name="死亡相机视角" type="Node2D" parent="." node_paths=PackedStringArray("follow_target")]
+position = Vector2(0, -100)
+script = ExtResource("4_v3bd4")
+follow_mode = 2
+follow_target = NodePath("..")
+zoom = Vector2(1.4, 1.4)
+tween_resource = SubResource("Resource_3dle1")
+follow_offset = Vector2(0, -100)
+draw_limits = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2q3t8")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_heeeu")

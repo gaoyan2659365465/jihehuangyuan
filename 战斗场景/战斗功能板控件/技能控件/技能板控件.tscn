@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://047vcfwgemhc"]
+
+[ext_resource type="Script" path="res://战斗场景/战斗功能板控件/技能控件/技能板控件.gd" id="1_7hpta"]
+[ext_resource type="PackedScene" uid="uid://duy2162nut8ef" path="res://战斗场景/战斗功能板控件/技能控件/技能子控件.tscn" id="2_vpe33"]
+[ext_resource type="Script" path="res://addons/template/超级按钮/点击动画配置.gd" id="3_1wcwv"]
+
+[sub_resource type="Resource" id="Resource_43bsk"]
+script = ExtResource("3_1wcwv")
+
+[sub_resource type="Resource" id="Resource_wshx3"]
+resource_local_to_scene = true
+script = ExtResource("3_1wcwv")
+
+[sub_resource type="Resource" id="Resource_8f818"]
+script = ExtResource("3_1wcwv")
+
+[sub_resource type="Resource" id="Resource_ms1ex"]
+script = ExtResource("3_1wcwv")
+
+[node name="技能板控件" type="Control"]
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 77.0
+grow_horizontal = 2
+script = ExtResource("1_7hpta")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="技能子控件" parent="HBoxContainer" instance=ExtResource("2_vpe33")]
+layout_mode = 2
+"点击效果" = SubResource("Resource_43bsk")
+
+[node name="技能子控件2" parent="HBoxContainer" instance=ExtResource("2_vpe33")]
+visible = false
+layout_mode = 2
+"点击效果" = SubResource("Resource_wshx3")
+
+[node name="技能子控件3" parent="HBoxContainer" instance=ExtResource("2_vpe33")]
+visible = false
+layout_mode = 2
+"点击效果" = SubResource("Resource_8f818")
+
+[node name="技能子控件4" parent="HBoxContainer" instance=ExtResource("2_vpe33")]
+visible = false
+layout_mode = 2
+"点击效果" = SubResource("Resource_ms1ex")
+
+[connection signal="点击释放技能" from="HBoxContainer/技能子控件" to="." method="_on_技能子控件_点击释放技能"]
+[connection signal="点击释放技能" from="HBoxContainer/技能子控件2" to="." method="_on_技能子控件_点击释放技能"]
+[connection signal="点击释放技能" from="HBoxContainer/技能子控件3" to="." method="_on_技能子控件_点击释放技能"]
+[connection signal="点击释放技能" from="HBoxContainer/技能子控件4" to="." method="_on_技能子控件_点击释放技能"]

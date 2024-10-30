@@ -1,0 +1,104 @@
+[gd_scene load_steps=10 format=3 uid="uid://cj3vcnmk83asy"]
+
+[ext_resource type="Texture2D" uid="uid://bi037pmvxs8ux" path="res://游戏场景/告示牌/素材/告示牌.png" id="1_cwk5d"]
+[ext_resource type="Script" path="res://游戏场景/告示牌/告示牌.gd" id="2_k6lhs"]
+[ext_resource type="Script" path="res://addons/template/超级按钮/点击动画配置.gd" id="3_uc0pq"]
+[ext_resource type="Texture2D" uid="uid://0ypi7b7tcxjk" path="res://游戏场景/告示牌/素材/告示牌2.png" id="4_eqh52"]
+[ext_resource type="PackedScene" uid="uid://ccdaq26v8yc5d" path="res://游戏场景/感叹号特效/感叹号特效.tscn" id="5_wxl2x"]
+
+[sub_resource type="Resource" id="Resource_w8dnx"]
+resource_local_to_scene = true
+script = ExtResource("3_uc0pq")
+
+[sub_resource type="Animation" id="Animation_p5i2n"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.105628]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("告示牌2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_x7egd"]
+resource_name = "告示牌摇晃"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.533333, 1.03333, 1.53333, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.0698132, 0.0, 0.0698132, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("告示牌2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.533333, 1.03333, 1.53333, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.0698132, 0.0, 0.0698132, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_imm6d"]
+_data = {
+"RESET": SubResource("Animation_p5i2n"),
+"告示牌摇晃": SubResource("Animation_x7egd")
+}
+
+[node name="告示牌" type="TextureButton" groups=["告示牌"]]
+z_index = 1
+offset_left = -7.29297
+offset_top = 3.29432
+offset_right = 62.707
+offset_bottom = 73.2943
+rotation = 0.105628
+pivot_offset = Vector2(34.8054, 67.3326)
+texture_normal = ExtResource("1_cwk5d")
+script = ExtResource("2_k6lhs")
+"点击效果" = SubResource("Resource_w8dnx")
+
+[node name="告示牌2" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 70.0
+offset_bottom = 70.0
+pivot_offset = Vector2(36.293, 24.7057)
+mouse_filter = 2
+texture = ExtResource("4_eqh52")
+
+[node name="感叹号特效" parent="." instance=ExtResource("5_wxl2x")]
+position = Vector2(32.3345, -17.5067)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_imm6d")
+}
+speed_scale = 0.8
+
+[connection signal="点击动画结束" from="." to="." method="_on_点击动画结束"]

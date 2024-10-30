@@ -1,0 +1,81 @@
+[gd_scene load_steps=11 format=3 uid="uid://drmspsdfqpela"]
+
+[ext_resource type="Script" path="res://战斗场景/战斗场景.gd" id="1_23hyt"]
+[ext_resource type="PackedScene" uid="uid://dkf8qbxcw33dm" path="res://战斗场景/血条控件/血条控件.tscn" id="1_cnlcl"]
+[ext_resource type="PackedScene" uid="uid://dm74p4js6sfbm" path="res://战斗场景/回合显示控件/回合显示控件.tscn" id="2_muxl4"]
+[ext_resource type="PackedScene" uid="uid://b65dppnqy0o53" path="res://战斗场景/倒计时控件/倒计时控件.tscn" id="3_g34fn"]
+[ext_resource type="AudioStream" uid="uid://br4s2falrffxw" path="res://战斗场景/技能系统/几何冲撞/素材/撞击.mp3" id="6_15rv2"]
+[ext_resource type="PackedScene" uid="uid://drhkks8fjwvw6" path="res://战斗场景/战斗功能板控件/战斗功能板控件.tscn" id="7_e4nxo"]
+[ext_resource type="AudioStream" uid="uid://t88e21tjj5tv" path="res://战斗场景/胜利.mp3" id="7_yttqq"]
+[ext_resource type="AudioStream" uid="uid://dhj1gl4ytbnyc" path="res://战斗场景/失败.mp3" id="8_shocg"]
+
+[sub_resource type="Gradient" id="Gradient_ite4o"]
+offsets = PackedFloat32Array(0, 0.393574, 0.445783, 0.502008, 0.730924, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.269231, 0.269231, 0.269231, 1, 0.34, 0.34, 0.34, 1, 0.341923, 0.341923, 0.341923, 1, 0.49, 0.49, 0.49, 1, 0.34, 0.34, 0.34, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ks3bd"]
+gradient = SubResource("Gradient_ite4o")
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 1)
+
+[node name="战斗场景" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_23hyt")
+
+[node name="背景渐变" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_ks3bd")
+
+[node name="血条控件" parent="." instance=ExtResource("1_cnlcl")]
+layout_mode = 1
+offset_left = 44.0
+offset_top = 27.0
+offset_right = -627.0
+offset_bottom = -510.0
+
+[node name="血条控件2" parent="." instance=ExtResource("1_cnlcl")]
+layout_mode = 1
+offset_left = 631.0
+offset_top = 27.0
+offset_right = -40.0
+offset_bottom = -510.0
+start = 1
+
+[node name="回合显示控件" parent="." instance=ExtResource("2_muxl4")]
+layout_mode = 1
+offset_bottom = -268.0
+
+[node name="倒计时控件" parent="." instance=ExtResource("3_g34fn")]
+layout_mode = 1
+offset_left = 517.0
+offset_top = 268.0
+offset_right = -515.0
+offset_bottom = -279.0
+
+[node name="战斗功能板控件" parent="." instance=ExtResource("7_e4nxo")]
+layout_mode = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_15rv2")
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_yttqq")
+
+[node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_shocg")
+
+[connection signal="死亡" from="血条控件" to="." method="_on_血条控件_死亡"]
+[connection signal="死亡" from="血条控件2" to="." method="_on_血条控件2_死亡"]
+[connection signal="计时结束" from="倒计时控件" to="." method="_on_倒计时控件_计时结束"]
+[connection signal="玩家释放技能" from="战斗功能板控件" to="." method="_on_战斗功能板控件_玩家释放技能"]
